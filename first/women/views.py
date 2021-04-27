@@ -5,13 +5,19 @@ def index(request):
     return HttpResponse("<h1>THe my first page</h1>")
 
 def categories(request, catid):
-    return HttpResponse(f"<h1>The my second page</h1><p>{catid*2}</p>")
+    def fuct(ii):
+        if ii <= 1:
+            return 1
+        return fuct(ii - 1) * ii
+    return HttpResponse(f"<h1>The my second page</h1><p>{fuct(int(catid))}</p>")
+
 
 def archive(request, year):
-    if int(year) > 2021:
-        return HttpResponse(f'Вывод {year}')
-    return HttpResponse(f'PageNotFound!')
+    if int(year) < 10:
+        return HttpResponse(f'Вывод {fuct(int(year))}')
+    return HttpResponse("Error input")
 
 def boots(request, method=['GET']):
-    print(f'" ".join([a+"="+b+"\n" for a,b in request.GET.items()])')
-    return HttpResponse(f'{"".join([a+"="+b+"  " for a,b in request.GET.items()])}')
+    if request.GET:
+        return HttpResponse(''.join([i+" = +j+'<br>' for i,j in request.GET.items()]))
+    return HttpResponse("Ошибка ввода!")
