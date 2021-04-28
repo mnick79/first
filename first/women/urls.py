@@ -4,7 +4,7 @@ from .views import *
 urlpatterns = [
     path('', index),
     path('cats/<int:catid>/', categories),
-    re_path(r'^archive/(?P<year>[0-9]{1})/', archive),
+    re_path(r'^archive/(?P<year>[0-9]{2})/', archive),
     path('boot/', boots)
 
 ]
